@@ -13,4 +13,4 @@ typedef struct clients{
 //----------LES Prototypes des fonctions
 
 void MenuPrincipale();
-
+void info(FILE *f,struct Client c);

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "main.h"
+#define TAILLE_MAX 1000
 
 
 int main(int argc, char *argv[]) {
@@ -10,7 +11,7 @@ int main(int argc, char *argv[]) {
 	FILE *file;
 	//Ouvrir le fichier
 	file=fopen("Banque.txt","a");
-	
+	Clients cl[TAILLE_MAX];
 	
 	do{
 		MenuPrincipale();
@@ -21,6 +22,11 @@ int main(int argc, char *argv[]) {
 			printf("\n--> Attention!!Veuillez entrer un choix valide entre 1 et 7 .\n\n");
 		}		
 	}while(choix<0 || choix>8);
+	switch (choix){
+		case 1:
+			infos(file,cl[0]);
+			break;
+	}
 	fclose(file);
 	return 0;
 }
@@ -35,7 +41,12 @@ void MenuPrincipale(){
 	puts("\t5.Afficher les compte a partir d'une montant\n");
 	puts("\t6.Rechercher par CIN\n");
 	puts("\t7.Operation de fidelisation\n");
-	puts("\t8.Quitter");
-			
+	puts("\t8.Quitter");			
 }
-
+void info(FILE *f,struct Clients c){
+	
+	puts("-Nom : ");
+	gets(c.Nom);
+	
+	
+}
