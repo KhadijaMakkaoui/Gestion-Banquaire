@@ -5,13 +5,23 @@
 
 
 int main(int argc, char *argv[]) {
+	int choix;
 	//Declaration
 	FILE *file;
 	//Ouvrir le fichier
 	file=fopen("Banque.txt","a");
 	
+	
+	do{
+		MenuPrincipale();
+		printf("Veuillez entrer votre choix : ");
+		scanf("%d",&choix);
+		if(choix<0 || choix>8)
+		{
+			printf("\n--> Attention!!Veuillez entrer un choix valide entre 1 et 7 .\n\n");
+		}		
+	}while(choix<0 || choix>8);
 	fclose(file);
-	MenuPrincipale();
 	return 0;
 }
 //Afficher le Menu principale 
