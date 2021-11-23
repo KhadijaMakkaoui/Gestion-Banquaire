@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include "main.h"
-#define TAILLE_MAX 1000
-
-
+#define TAILLE_MAX 100
+struct clients  cl[TAILLE_MAX];
 int main(int argc, char *argv[]) {
 	int choix,nb;
 	
-	struct clients cl,cls;
 
+//	struct clients cl;
+	//struct clients cls[TAILLE_MAX];
+	char RCIN[20];
+	int i,indice=NULL;
 	
 	do{
 		choisir(&choix);
@@ -24,10 +26,14 @@ int main(int argc, char *argv[]) {
 				Minfo(nb);
 				break;
 			case 3:
+				//Retrait depot
 				MenuOp();
-				
+				//printf("%d",rechercherIndiceParCIN(cls[10]));
 				break;
 			case 4:
+				//Affichage
+				//TriSelection(cls);
+				Affichage(cl);
 				break;
 			case 5:
 				break;
@@ -36,9 +42,8 @@ int main(int argc, char *argv[]) {
 			case 7:
 				break;
 			case 8:
-				break;
-		
-				
+				//Quitter
+				break;	
 		}
 				
 	}while(choix!=8);
@@ -71,7 +76,16 @@ void MenuPrincipale(){
 	puts("\t7.Operation de fidelisation\n");
 	puts("\t8.Quitter");			
 }
-
+//Afficher tous
+//void Affichage(struct clients cl[])
+void Affichage()
+{
+	int i;
+	for(i=0;i<10;i++)
+	{
+		printf("-CIN : %s  | Nom : %s  | Prenom : %s  | Montant : %f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	}	
+}
 //Recuperer les info d'un seul compte
 void info(struct clients c){
 	printf("-CIN : ");
@@ -88,9 +102,10 @@ void info(struct clients c){
 	//fputs(c->Prenom,fichier);
 	//fprintf(fichier,"%d",c->Montant);	
 }
-void Minfo(int taille){
+//Infos de plusieurs comptes
+/*void Minfo(int taille){
 	int i;
-	struct clients c[taille];
+	struct clients cls[taille];
 	for(i=0;i<taille;i++)
 	{
 		printf("\nCompte numero %d\n",i+1);
@@ -102,6 +117,22 @@ void Minfo(int taille){
 		scanf("%s",c[i].Prenom);
 		printf("-Montant : ");
 		scanf("%f",&c[i].Montant);
+	}	
+}*/
+void Minfo(int nb){
+	int i;
+	
+	for(i=0;i<nb;i++)
+	{
+		printf("\nCompte numero %d\n",i+1);
+		printf("-CIN : ");
+		scanf("%s",cl[i].CIN);
+		printf("-Nom : ");
+		scanf("%s",cl[i].Nom);
+		printf("-Prenom : ");
+		scanf("%s",cl[i].Prenom);
+		printf("-Montant : ");
+		scanf("%f",&cl[i].Montant);
 	}	
 }
 //AffichageMenu des categories d'ordre pour afficher
@@ -115,6 +146,22 @@ void AfficherMenu()
 
 
 }
+//Chercher indice du compte 
+/*int rechercherIndiceParCIN(struct clients c)
+{
+	
+	printf("Donner le CIN du client : ");
+	scanf("%s",RCIN);
+	for(i=0;i<TAILLE_MAX;i++)
+	{
+		if(RCIN==(c[i]).CIN)
+		{
+			indice=i;
+		}
+	}
+	return indice;
+	
+}*/
 //Menu Operations
 int MenuOp()
 {
@@ -135,7 +182,7 @@ int MenuOp()
 }
 
 //Operations
-void RetraitDepot(int choix,float montant,float montant_R_D)
+void RetraitDepot(int choix,int indice,float montant,float montant_R_D)
 {
 	float montantRetrait,montantDepot;
     if(choix==1)
@@ -162,9 +209,42 @@ void RetraitDepot(int choix,float montant,float montant_R_D)
 		printf("Choix invalide\n");
 	}
 }
-
+//Tri par Selection
+/*void TriSelection(struct clients t[100])
+{
+	int i,j,min,temp;
+	int n=100;
+	
+	//Tri par selection
+	for(i=0;i<n-1;i++)
+	{
+		min=i;
+		for(j=i+1;j<n;j++)
+		{
+			//trouver la valeur min
+			if(t[j]<t[min])
+			{
+				min=j;
+			}	
+		}	
+		//Faire la permutation
+		if(i!=min)
+		{
+			temp=t[i];
+			t[i]=t[min];
+			t[min]=temp;
+		}
+	}
+	//Afficher
+	for(i=0;i<100;i++)
+	{
+		printf("-CIN : %s,Nom : %s, Prenom : %s, Montant : %f\n",t[i].CIN,t[i].Nom,t[i].Prenom,t[i].Montant);
+		printf("____________________________________________________________________________________________");
+	}
+}
+*/
 //Affichage
-/*void AfficherParOrdre(int choix)
+void AfficherParOrdre(int choix)
 {
 	if(choix==1)
     {//Acsendant
@@ -195,4 +275,4 @@ void Rechercher(char CIN[])
 }
 void Fidelisation()
 {
-}*/
+}
