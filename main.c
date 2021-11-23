@@ -3,7 +3,7 @@
 #include <string.h>
 #include "main.h"
 #define TAILLE_MAX 100
-struct clients  cl[TAILLE_MAX];
+struct comptes  cl[TAILLE_MAX];
 int main(int argc, char *argv[]) {
 	int choix,nb;
 	
@@ -27,8 +27,7 @@ int main(int argc, char *argv[]) {
 				RetraitDepot(MenuOp(),rechercherIndiceParCIN());
 				break;
 			case 4:
-				//Affichage
-				//TriSelection(cls);
+				TriDesc(nb);
 				Affichage(cl);
 				break;
 			case 5:
@@ -209,19 +208,20 @@ void RetraitDepot(int choix,int indice)
    
 }
 //Tri par Selection
-/*void TriSelection()
+/*void TriSelectionDesc(int taille)
 {
-	int i,j,min,temp;
+	int i,j,min;
 	int n=100;
+	struct comptes temp[TAILLE_MAX];
 	
-	//Tri par selection
-	for(i=0;i<n-1;i++)
+	
+	for(i=0;i<taille-1;i++)
 	{
 		min=i;
 		for(j=i+1;j<n;j++)
 		{
 			//trouver la valeur min
-			if(t[j]<t[min])
+			if(cl[j].Montant<cl[min].Montant)
 			{
 				min=j;
 			}	
@@ -229,14 +229,30 @@ void RetraitDepot(int choix,int indice)
 		//Faire la permutation
 		if(i!=min)
 		{
-			temp=t[i];
-			t[i]=t[min];
-			t[min]=temp;
+			temp.Montant[i]=cl[i].Montant;
+			cl[i].Montant=cl[min].Montant;
+			cl[min].Montant=temp.Montant;
 		}
 	}
 
 }*/
-
+void TriDesc(int taille)
+{
+	int i, j;
+    struct comptes temp;
+	for (i = 0; i < taille-1; i++)
+    {
+        for (j =0; j < (taille-1-i)); j++)
+        {
+            if (cl[j].Montant < cl[j+1].Montant)
+            {
+                temp = cl[i];
+                cl[i] = cl[j+1];
+                cl[j+1] = temp;
+            } 
+        }
+    }
+}
 //Affichage
 void AfficherParOrdre(int choix)
 {
