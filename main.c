@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 				break;
 			case 3:
 				//Retrait depot
-				MenuOp();
+				RetraitDepot(MenuOp(),rechercherIndiceParCIN());
 				//printf("%d",rechercherIndiceParCIN(cls[10]));
 				break;
 			case 4:
@@ -87,38 +87,22 @@ void Affichage()
 	}	
 }
 //Recuperer les info d'un seul compte
-void info(struct clients c){
+void info(){
 	printf("-CIN : ");
-	scanf("%s",c.CIN);
+	scanf("%s",cl[0].CIN);
 	printf("-Nom : ");
-	scanf("%s",c.Nom);
+	scanf("%s",cl[0].Nom);
 	printf("-Prenom : ");
-	scanf("%s",c.Prenom);
+	scanf("%s",cl[0].Prenom);
 	printf("-Montant : ");
-	scanf("%f",&c.Montant);
+	scanf("%f",&cl[0].Montant);
 	//ecrire dans le fichier
 	//fputs("HIiiiiiii",fichier);
 	//fputs(c->Nom,fichier);
 	//fputs(c->Prenom,fichier);
 	//fprintf(fichier,"%d",c->Montant);	
 }
-//Infos de plusieurs comptes
-/*void Minfo(int taille){
-	int i;
-	struct clients cls[taille];
-	for(i=0;i<taille;i++)
-	{
-		printf("\nCompte numero %d\n",i+1);
-		printf("-CIN : ");
-		scanf("%s",c[i].CIN);
-		printf("-Nom : ");
-		scanf("%s",c[i].Nom);
-		printf("-Prenom : ");
-		scanf("%s",c[i].Prenom);
-		printf("-Montant : ");
-		scanf("%f",&c[i].Montant);
-	}	
-}*/
+
 void Minfo(int nb){
 	int i;
 	
@@ -147,21 +131,22 @@ void AfficherMenu()
 
 }
 //Chercher indice du compte 
-/*int rechercherIndiceParCIN(struct clients c)
+int rechercherIndiceParCIN()
 {
-	
+	int i,indice=-1;
+	char RCIN[20];
 	printf("Donner le CIN du client : ");
 	scanf("%s",RCIN);
 	for(i=0;i<TAILLE_MAX;i++)
 	{
-		if(RCIN==(c[i]).CIN)
+		if(strcmp(RCIN,cl[i].CIN) == 0)
 		{
 			indice=i;
 		}
 	}
 	return indice;
 	
-}*/
+}
 //Menu Operations
 int MenuOp()
 {
@@ -182,32 +167,41 @@ int MenuOp()
 }
 
 //Operations
-void RetraitDepot(int choix,int indice,float montant,float montant_R_D)
+void RetraitDepot(int choix,int indice)
 {
-	float montantRetrait,montantDepot;
-    if(choix==1)
-    {//Retrait
-    	montantRetrait=montant_R_D;
-    	if(montant>montantRetrait)
-    	{
-    		montant-=montantRetrait;
-    		printf("Operation effectuee avec succes\n");
+	float montantR_D,montant;
+	if(indice!=-1)
+	{
+		montant=cl[indice].Montant;
+		if(choix==1)
+	    {//Retrait
+	    	printf("Donner la montant a retirer : ");
+	    	scanf("%f",&montantR_D);
+	    	if(montant>montantR_D)
+	    	{
+	    		montant-=montantR_D;
+	    		printf("Operation effectuee avec succees\n");
+	    		cl[indice].Montant=montant;
+			}
+			else
+			{
+				printf("Le solde est insuffisant\n");
+			}
 		}
 		else
 		{
-			printf("Le solde est insuffisant");
+			printf("Donner la montant a deposer : ");
+	    	scanf("%f",&montantR_D);
+			montant+=montantR_D;
+	    	printf("Operation effectuee avec succees\n");
+	    	cl[indice].Montant=montant;
 		}
-	}
-	else if(choix==2)
-	{
-		montantDepot=montant_R_D;
-		montant+=montantDepot;
-    	printf("Operation effectuee avec succes\n");
 	}
 	else
 	{
-		printf("Choix invalide\n");
+		printf("CIN introuvable!!\n");
 	}
+   
 }
 //Tri par Selection
 /*void TriSelection(struct clients t[100])

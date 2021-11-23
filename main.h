@@ -16,7 +16,8 @@ void choisir(int *choix);
 void MenuPrincipale();
 void info();
 //void Minfo(int nb);
+void RetraitDepot(int choix,int indice);
 void Minfo(int nb);
-int rechercherIndiceParCIN(struct clients c);
+int rechercherIndiceParCIN();
 int MenuOp();
 
