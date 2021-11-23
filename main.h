@@ -11,16 +11,28 @@ struct comptes{
 //}clients[TAILLE_MAX];
 
 //----------LES Prototypes des fonctions
-void Affichage();
+//Les fcts d'affichage
+void Affichage(int taille);
 void AffichageParIndice(int i);
-void choisir(int *choix);
+void AfficherParOrdre(int choix,int taille);
+void AffichageAsc(int taille);
+void AffichageDesc(int taille);
+void AfficherAPartirDe_Asc(int debut,int taille);
+void AfficherAPartirDe_Desc(int debut,int taille);
+
+//Les menus
 void MenuPrincipale();
+int MenuOp();
+int MenuTri();
+
+void choisir(int *choix);
 void info();
-//void Minfo(int nb);
 void RetraitDepot(int choix,int indice);
 void Minfo(int nb);
-int rechercherIndiceParCIN();
-int MenuOp();
+//Les fcts de recherche
+int rechercherParCIN(int taille);
+int rechercherParMontant(int taille);
+
 //tri
-void TriDesc(int taille);
+void TriAsc(int taille);
 

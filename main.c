@@ -24,132 +24,62 @@ int main(int argc, char *argv[]) {
 				break;
 			case 3:
 				//Retrait depot
-				RetraitDepot(MenuOp(),rechercherIndiceParCIN());
+				RetraitDepot(MenuOp(),rechercherParCIN(nb));
 				break;
-			case 4:
-				TriDesc(nb);
-				Affichage(cl);
+			case 4://Affichage par ordre
+				TriAsc(nb);
+				AfficherParOrdre(MenuTri(),nb);
+				
+				//Affichage(nb);
 				break;
-			case 5:
-				break;
-			case 6:
+			case 5:	
 				//Recherche par CIN
-				AffichageParIndice(rechercherIndiceParCIN());
+				AffichageParIndice(rechercherParCIN(nb));
 				break;
-			case 7:
+			case 6://Fidelisation
+			
 				break;
-			case 8:
-				//Quitter
+			case 7://Quitter
 				break;	
 		}
 				
-	}while(choix!=8);
+	}while(choix!=7);
 		
 		
 	return 0;
 }
-void choisir(int *choix)
-{
-	do{
-		MenuPrincipale();
-		printf("Veuillez entrer votre choix : ");
-		scanf("%d",choix);
-		if(*choix<0 || *choix>8)
-		{
-			printf("\n--> Attention!!Veuillez entrer un choix valide entre 1 et 7 .\n\n");
-		}		
-	}while(*choix<0 || *choix>8);
-}
+//--------Menus---------------------------------------------------------
 //Afficher le Menu principale 
 void MenuPrincipale(){
 
 	puts("\n\t------------Menu Principale------------\n");
 	puts("\t1.Introduire un seul compte\n");
-	puts("\t2.Introduire plusieur comptes\n");
+	puts("\t2.Introduire plusieurs comptes\n");
 	puts("\t3.Effectuer une operation banquaire\n");
-	puts("\t4.Afficher les comptes par montant\n");
-	puts("\t5.Afficher les compte a partir d'une montant\n");
-	puts("\t6.Rechercher par CIN\n");
-	puts("\t7.Operation de fidelisation\n");
-	puts("\t8.Quitter");			
-}
-//Afficher par cin
-//Afficher tous
-void AffichageParIndice(int i)
-{
-	
-	printf("-CIN : %s  | Nom : %s  | Prenom : %s  | Montant : %f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
-		
-}
-//Afficher tous
-void Affichage()
-{
-	int i;
-	for(i=0;i<10;i++)
-	{
-		printf("-CIN : %s  | Nom : %s  | Prenom : %s  | Montant : %f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
-	}	
-}
-//Recuperer les info d'un seul compte
-void info(){
-	printf("-CIN : ");
-	scanf("%s",cl[0].CIN);
-	printf("-Nom : ");
-	scanf("%s",cl[0].Nom);
-	printf("-Prenom : ");
-	scanf("%s",cl[0].Prenom);
-	printf("-Montant : ");
-	scanf("%f",&cl[0].Montant);
-	//ecrire dans le fichier
-	//fputs("HIiiiiiii",fichier);
-	//fputs(c->Nom,fichier);
-	//fputs(c->Prenom,fichier);
-	//fprintf(fichier,"%d",c->Montant);	
-}
-
-void Minfo(int nb){
-	int i;
-	
-	for(i=0;i<nb;i++)
-	{
-		printf("\nCompte numero %d\n",i+1);
-		printf("-CIN : ");
-		scanf("%s",cl[i].CIN);
-		printf("-Nom : ");
-		scanf("%s",cl[i].Nom);
-		printf("-Prenom : ");
-		scanf("%s",cl[i].Prenom);
-		printf("-Montant : ");
-		scanf("%f",&cl[i].Montant);
-	}	
+	puts("\t4.Afficher les comptes par ordre\n");
+	puts("\t5.Rechercher un compte par CIN\n");
+	puts("\t6.Operation de fidelisation\n");
+	puts("\t7.Quitter");			
 }
 //AffichageMenu des categories d'ordre pour afficher
-void AfficherMenu()
+int MenuTri()
 {
-	printf("\t->Veuiller choisir la categorie de l affichage : \n");
-	printf("1.Affichage par montant en Ordre Ascendant\n ");
-	printf("2.Affichage par montant en Ordre Descendant\n ");
-	printf("3.Affichage a partir de la montant donnée en Ordre Ascendant\n ");
-	printf("4.Affichage a partir de la montant donnée en Ordre Descendant\n ");
-
-
-}
-//Chercher indice du compte 
-int rechercherIndiceParCIN()
-{
-	int i,indice=-1;
-	char RCIN[20];
-	printf("Donner le CIN du client : ");
-	scanf("%s",RCIN);
-	for(i=0;i<TAILLE_MAX;i++)
+	int ch;
+	do
 	{
-		if(strcmp(RCIN,cl[i].CIN) == 0)
+		printf("\t--Veuiller choisir la categorie de l affichage--\n ");
+		printf("1.Affichage par montant en Ordre Ascendant\n ");
+		printf("2.Affichage par montant en Ordre Descendant\n ");
+		printf("3.Affichage a partir de la montant donnee en Ordre Ascendant\n ");
+		printf("4.Affichage a partir de la montant donnee en Ordre Descendant\n ");
+		printf("->Donner votre choix : ");
+		scanf("%d",&ch);
+		if(ch<1 || ch>5)
 		{
-			indice=i;
+			printf("\nVotre choix est invalide veuillez entrer un nombre entre 1 et 7,Ressayer!\n\n");
 		}
-	}
-	return indice;
-	
+	}while(ch<1 || ch>5);
+	return ch;
 }
 //Menu Operations
 int MenuOp()
@@ -169,8 +99,94 @@ int MenuOp()
 	}while(op!=1 && op!=2);
 	
 }
+//Choix du menu principale
+void choisir(int *choix)
+{
+	do{
+		MenuPrincipale();
+		printf("Veuillez entrer votre choix : ");
+		scanf("%d",choix);
+		if(*choix<0 || *choix>7)
+		{
+			printf("\n--> Attention!!Veuillez entrer un choix valide entre 1 et 7 .\n\n");
+		}		
+	}while(*choix<0 || *choix>7);
+}
 
-//Operations
+//-----------------Recuperation des infos-----------------------
+//Recuperer les info d'un seul compte
+void info(){
+	printf("-CIN : ");
+	scanf("%s",cl[0].CIN);
+	printf("-Nom : ");
+	scanf("%s",cl[0].Nom);
+	printf("-Prenom : ");
+	scanf("%s",cl[0].Prenom);
+	printf("-Montant : ");
+	scanf("%f",&cl[0].Montant);
+	//ecrire dans le fichier
+	//fputs("HIiiiiiii",fichier);
+	//fputs(c->Nom,fichier);
+	//fputs(c->Prenom,fichier);
+	//fprintf(fichier,"%d",c->Montant);	
+}
+//Recuperer plusieurs cpt
+void Minfo(int nb){
+	int i;
+	
+	for(i=0;i<nb;i++)
+	{
+		printf("\nCompte numero %d\n",i+1);
+		printf("-CIN : ");
+		scanf("%s",cl[i].CIN);
+		printf("-Nom : ");
+		scanf("%s",cl[i].Nom);
+		printf("-Prenom : ");
+		scanf("%s",cl[i].Prenom);
+		printf("-Montant : ");
+		scanf("%f",&cl[i].Montant);
+	}	
+}
+//--------------Recherche d'indice-------------------
+//Chercher par CIN 
+int rechercherParCIN(int taille)
+{
+	int i,indice=-1;
+	char RCIN[20];
+	printf("Donner le CIN du client : ");
+	scanf("%s",RCIN);
+	for(i=0;i<taille;i++)
+	{
+		if(strcmp(RCIN,cl[i].CIN) == 0)
+		{
+			indice=i;
+			break;
+		}
+	}
+	return indice;
+	
+}
+//Chercher par Montant
+int rechercherParMontant(int taille)
+{
+	//Chercher le premier montant inferieur a la montant du debut
+	int i,indice=-1;
+	float mt;
+	printf("Donner le montant initiale : ");
+	scanf("%f",&mt);
+	for(i=0;i<taille;i++)
+	{
+		if(cl[i].Montant<mt )
+		{
+			indice=i+1;
+			break;
+		}
+	}
+	return indice;
+	
+}
+
+//-------------------Operations
 void RetraitDepot(int choix,int indice)
 {
 	float montantR_D,montant;
@@ -207,59 +223,15 @@ void RetraitDepot(int choix,int indice)
 	}
    
 }
-//Tri par Selection
-/*void TriSelectionDesc(int taille)
-{
-	int i,j,min;
-	int n=100;
-	struct comptes temp[TAILLE_MAX];
-	
-	
-	for(i=0;i<taille-1;i++)
-	{
-		min=i;
-		for(j=i+1;j<n;j++)
-		{
-			//trouver la valeur min
-			if(cl[j].Montant<cl[min].Montant)
-			{
-				min=j;
-			}	
-		}	
-		//Faire la permutation
-		if(i!=min)
-		{
-			temp.Montant[i]=cl[i].Montant;
-			cl[i].Montant=cl[min].Montant;
-			cl[min].Montant=temp.Montant;
-		}
-	}
 
-}
-void TriDesc(int taille)
-{
-	int i, j;
-    struct comptes temp;
-	for (i = 0; i < taille-1; i++)
-    {
-        for (j =0; j < (taille-1-i); j++)
-        {
-            if (cl[j].Montant < cl[j+1].Montant)
-            {
-                temp = cl[i];
-                cl[i] = cl[j+1];
-                cl[j+1] = temp;
-            } 
-        }
-    }
-}*/
-void TriDesc(int taille)
+//----------------Tri Asc du min au max
+void TriAsc(int taille)
 {
 	int i, j;
     struct comptes temp;
 	for (i = 0; i < taille; i++)
     {
-        for (j =1; j < taille-1; j++)
+        for (j =i+1; j < taille; j++)
         {
             if (cl[j].Montant < cl[i].Montant)
             {
@@ -270,24 +242,70 @@ void TriDesc(int taille)
         }
     }
 }
-//Affichage
-void AfficherParOrdre(int choix)
+//----------------------------Affichages
+//Afficher par indice
+void AffichageParIndice(int i)
+{
+	printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+
+	//printf("-CIN : %s  | Nom : %s  | Prenom : %s  | Montant : %f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+		
+}
+//Afficher Asc
+void AffichageAsc(int taille)
+{
+	int i;
+	for(i=0;i<taille;i++)
+	{
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	}	
+}
+//Afficher Desc
+void AffichageDesc(int taille)
+{
+	int i;
+	for(i=taille-1;i>=0;i--)
+	{
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	}	
+}
+
+//Afficher à partir d'unr montant
+void AfficherAPartirDe_Asc(int debut,int taille)
+{
+	int i;
+	for(i=debut;i<taille;i++)
+	{
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	}	
+}
+void AfficherAPartirDe_Desc(int debut,int taille)
+{
+	int i;
+	for(i=debut;i>=0;i--)
+	{
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	}	
+}
+//Afficher tous par ordre
+void AfficherParOrdre(int choix,int taille)
 {
 	if(choix==1)
     {//Acsendant
+    	AffichageAsc(taille);
     	
 	}
 	else if(choix==2)
 	{//Descendant
-		
+		AffichageDesc(taille);
 	}
 	else if(choix==3)
 	{//Acsendant apartir de
-		
+		 AfficherAPartirDe_Asc(rechercherParMontant(taille),taille);
 	}
 	else if(choix==4)
 	{//Descendant apartir de
-		
+		 AfficherAPartirDe_Desc(rechercherParMontant(taille),taille);
 	}
 	else
 	{
@@ -295,11 +313,7 @@ void AfficherParOrdre(int choix)
 		
 	}
 }
-//Recherche
-void Rechercher(char CIN[])
-{
-	
-}
+
 void Fidelisation()
 {
 }
