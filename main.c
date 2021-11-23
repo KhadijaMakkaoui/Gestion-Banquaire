@@ -6,45 +6,44 @@
 
 
 int main(int argc, char *argv[]) {
-	int choix;
-	//Declaration
-	FILE* fl=NULL;
-	//Ouvrir le fichier
-	fl=fopen("Banque.txt","a+");
-	struct clients cl[TAILLE_MAX];
+	int choix,nb;
 	
-	int q=0;
-	if (fl == NULL)
-    {
-        printf("Impossible d'ouvrir le fichier ");
-    }
-    else
-    {
-    
-		do{
-			choisir(&choix);
-			switch (choix){
-				case 1:{
-					info(fl,&cl[0]);
-					break;
-					}
-				case 2:
-					Minfo(fl,cl);
+	struct clients cl,cls;
 
-					break;
-				case 8:{
-					return 0;
-					q=1;
-					break;
-				}
-					
-			}
-					
-		}while(q!=1);
+	
+	do{
+		choisir(&choix);
+		
+		switch (choix){
+			case 1:
+				info(cl);
+				break;
+			case 2:
+				printf("Donner le nombres des comptes que vous voulez introduire: ");
+				scanf("%d",&nb);
+				Minfo(nb);
+				break;
+			case 3:
+				MenuOp();
+				
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			case 8:
+				break;
+		
+				
+		}
+				
+	}while(choix!=8);
 		
 		
-		fclose(fl);
-	}
 	return 0;
 }
 void choisir(int *choix)
@@ -72,30 +71,29 @@ void MenuPrincipale(){
 	puts("\t7.Operation de fidelisation\n");
 	puts("\t8.Quitter");			
 }
+
 //Recuperer les info d'un seul compte
-void info(FILE *fichier,struct clients *c){
+void info(struct clients c){
 	printf("-CIN : ");
-	scanf("%s",c->CIN);
+	scanf("%s",c.CIN);
 	printf("-Nom : ");
-	scanf("%s",c->Nom);
+	scanf("%s",c.Nom);
 	printf("-Prenom : ");
-	scanf("%s",c->Prenom);
+	scanf("%s",c.Prenom);
 	printf("-Montant : ");
-	scanf("%f",c->Montant);
+	scanf("%f",&c.Montant);
 	//ecrire dans le fichier
 	//fputs("HIiiiiiii",fichier);
 	//fputs(c->Nom,fichier);
 	//fputs(c->Prenom,fichier);
 	//fprintf(fichier,"%d",c->Montant);	
 }
-void Minfo(FILE *fichier,struct clients c[]){
-	int nb,i;
-	printf("Donner le nombres des comptes que vous voulez introduire: ");
-	scanf("%d",&nb);
-		//if(ch!=1) break; 
-	for(i=0;i<=nb;i++)
+void Minfo(int taille){
+	int i;
+	struct clients c[taille];
+	for(i=0;i<taille;i++)
 	{
-		printf("Compte numero %d",i+1);
+		printf("\nCompte numero %d\n",i+1);
 		printf("-CIN : ");
 		scanf("%s",c[i].CIN);
 		printf("-Nom : ");
@@ -103,21 +101,46 @@ void Minfo(FILE *fichier,struct clients c[]){
 		printf("-Prenom : ");
 		scanf("%s",c[i].Prenom);
 		printf("-Montant : ");
-		scanf("%f",c[i].Montant);
+		scanf("%f",&c[i].Montant);
 	}	
 }
-//Menu Operations
-void MenuOp()
+//AffichageMenu des categories d'ordre pour afficher
+void AfficherMenu()
 {
-	printf("1.Retrait\n2.Depot\n");
+	printf("\t->Veuiller choisir la categorie de l affichage : \n");
+	printf("1.Affichage par montant en Ordre Ascendant\n ");
+	printf("2.Affichage par montant en Ordre Descendant\n ");
+	printf("3.Affichage a partir de la montant donnée en Ordre Ascendant\n ");
+	printf("4.Affichage a partir de la montant donnée en Ordre Descendant\n ");
+
+
 }
+//Menu Operations
+int MenuOp()
+{
+	int op;
+	do{
+		printf("1.Retrait\n2.Depot\n");
+		scanf("%d",&op);
+		if(op==1 || op==2)
+		{
+			return op;
+		}
+		else
+		{
+			printf("Votre choix est invalide!!Ressayer\n");
+		}
+	}while(op!=1 && op!=2);
+	
+}
+
 //Operations
 void RetraitDepot(int choix,float montant,float montant_R_D)
 {
 	float montantRetrait,montantDepot;
     if(choix==1)
     {//Retrait
-    	montantRtrait=montant_R_D;
+    	montantRetrait=montant_R_D;
     	if(montant>montantRetrait)
     	{
     		montant-=montantRetrait;
@@ -139,19 +162,9 @@ void RetraitDepot(int choix,float montant,float montant_R_D)
 		printf("Choix invalide\n");
 	}
 }
-//AffichageMenu
-void AfficherMenu()
-{
-	printf("\t->Veuiller choisir la categorie de l affichage : \n");
-	printf("1.Affichage par montant en Ordre Ascendant\n ");
-	printf("2.Affichage par montant en Ordre Descendant\n ");
-	printf("3.Affichage a partir de la montant donnée en Ordre Ascendant\n ");
-	printf("4.Affichage a partir de la montant donnée en Ordre Descendant\n ");
 
-
-}
 //Affichage
-void AfficherParOrdre(int choix)
+/*void AfficherParOrdre(int choix)
 {
 	if(choix==1)
     {//Acsendant
@@ -182,4 +195,4 @@ void Rechercher(char CIN[])
 }
 void Fidelisation()
 {
-}
+}*/
