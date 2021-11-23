@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 				AffichageParIndice(rechercherParCIN(nb));
 				break;
 			case 6://Fidelisation
-			
+				Fidelisation(nb);
 				break;
 			case 7://Quitter
 				break;	
@@ -209,7 +209,7 @@ void RetraitDepot(int choix,int indice)
 			}
 		}
 		else
-		{
+		{//Depot
 			printf("Donner la montant a deposer : ");
 	    	scanf("%f",&montantR_D);
 			montant+=montantR_D;
@@ -314,6 +314,29 @@ void AfficherParOrdre(int choix,int taille)
 	}
 }
 
-void Fidelisation()
+void Fidelisation(int taille)
 {
-}
+	TriAsc(taille);
+	int i,ch;
+	float mtFidel;
+	puts("\t-Fidelisation-\n\tVoila les trois premiers comptes :\n\n");
+	for(i=taille-1;i<=taille-3;i--)
+	{
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+
+	}
+	puts("\n--->Taper 1 pour ajouter le taux de fidelisation aux comptes ci-dessus\n-->Taper un autre caractere pour quiter\n\n");
+	printf("Donner votre choix : ");
+	scanf("%d",&ch);
+	if(ch==1)
+	{
+		mtFidel=1.3*cl[i].Montant/100;
+	    for(i=taille-1;i<=taille-3;i--)
+		{
+			cl[i].Montant+=mtFidel;
+		}
+		printf("Operation effectuee avec succees\n");
+	}
+	
+
+}	

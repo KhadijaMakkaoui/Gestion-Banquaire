@@ -35,4 +35,6 @@ int rechercherParMontant(int taille);
 
 //tri
 void TriAsc(int taille);
+//Fidelisation
+void Fidelisation(int taille);
 
