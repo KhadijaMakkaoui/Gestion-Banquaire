@@ -242,7 +242,7 @@ void TriDesc(int taille)
     struct comptes temp;
 	for (i = 0; i < taille-1; i++)
     {
-        for (j =0; j < (taille-1-i)); j++)
+        for (j =0; j < (taille-1-i); j++)
         {
             if (cl[j].Montant < cl[j+1].Montant)
             {
