@@ -12,6 +12,7 @@ struct clients{
 
 //----------LES Prototypes des fonctions
 void Affichage();
+void AffichageParIndice(int i);
 void choisir(int *choix);
 void MenuPrincipale();
 void info();

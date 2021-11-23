@@ -7,11 +7,8 @@ struct clients  cl[TAILLE_MAX];
 int main(int argc, char *argv[]) {
 	int choix,nb;
 	
-
-//	struct clients cl;
-	//struct clients cls[TAILLE_MAX];
 	char RCIN[20];
-	int i,indice=NULL;
+	int i,indice=-1;
 	
 	do{
 		choisir(&choix);
@@ -28,7 +25,6 @@ int main(int argc, char *argv[]) {
 			case 3:
 				//Retrait depot
 				RetraitDepot(MenuOp(),rechercherIndiceParCIN());
-				//printf("%d",rechercherIndiceParCIN(cls[10]));
 				break;
 			case 4:
 				//Affichage
@@ -38,6 +34,8 @@ int main(int argc, char *argv[]) {
 			case 5:
 				break;
 			case 6:
+				//Recherche par CIN
+				AffichageParIndice(rechercherIndiceParCIN());
 				break;
 			case 7:
 				break;
@@ -66,7 +64,7 @@ void choisir(int *choix)
 //Afficher le Menu principale 
 void MenuPrincipale(){
 
-	puts("\t------------Menu Principale------------");
+	puts("\n\t------------Menu Principale------------\n");
 	puts("\t1.Introduire un seul compte\n");
 	puts("\t2.Introduire plusieur comptes\n");
 	puts("\t3.Effectuer une operation banquaire\n");
@@ -76,8 +74,15 @@ void MenuPrincipale(){
 	puts("\t7.Operation de fidelisation\n");
 	puts("\t8.Quitter");			
 }
+//Afficher par cin
 //Afficher tous
-//void Affichage(struct clients cl[])
+void AffichageParIndice(int i)
+{
+	
+	printf("-CIN : %s  | Nom : %s  | Prenom : %s  | Montant : %f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+		
+}
+//Afficher tous
 void Affichage()
 {
 	int i;
@@ -204,7 +209,7 @@ void RetraitDepot(int choix,int indice)
    
 }
 //Tri par Selection
-/*void TriSelection(struct clients t[100])
+/*void TriSelection()
 {
 	int i,j,min,temp;
 	int n=100;
@@ -229,14 +234,9 @@ void RetraitDepot(int choix,int indice)
 			t[min]=temp;
 		}
 	}
-	//Afficher
-	for(i=0;i<100;i++)
-	{
-		printf("-CIN : %s,Nom : %s, Prenom : %s, Montant : %f\n",t[i].CIN,t[i].Nom,t[i].Prenom,t[i].Montant);
-		printf("____________________________________________________________________________________________");
-	}
-}
-*/
+
+}*/
+
 //Affichage
 void AfficherParOrdre(int choix)
 {
