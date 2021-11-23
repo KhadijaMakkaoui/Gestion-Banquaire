@@ -158,7 +158,7 @@ int MenuOp()
 	do{
 		printf("1.Retrait\n2.Depot\n");
 		scanf("%d",&op);
-		if(op==1 || op==2)
+ 		if(op==1 || op==2)
 		{
 			return op;
 		}
@@ -235,7 +235,7 @@ void RetraitDepot(int choix,int indice)
 		}
 	}
 
-}*/
+}
 void TriDesc(int taille)
 {
 	int i, j;
@@ -249,6 +249,23 @@ void TriDesc(int taille)
                 temp = cl[i];
                 cl[i] = cl[j+1];
                 cl[j+1] = temp;
+            } 
+        }
+    }
+}*/
+void TriDesc(int taille)
+{
+	int i, j;
+    struct comptes temp;
+	for (i = 0; i < taille; i++)
+    {
+        for (j =1; j < taille-1; j++)
+        {
+            if (cl[j].Montant < cl[i].Montant)
+            {
+                temp = cl[i];
+                cl[i] = cl[j];
+                cl[j] = temp;
             } 
         }
     }
