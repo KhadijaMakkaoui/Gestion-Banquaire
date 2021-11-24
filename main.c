@@ -4,38 +4,40 @@
 #include <math.h>
 #include "main.h"
 #define TAILLE_MAX 100
+//Variables globales
 struct comptes  cl[TAILLE_MAX];
+int nbCl=0;
+
 int main(int argc, char *argv[]) {
 	int choix,nb;
-	
-	char RCIN[20];
-	int i,indice=-1;
+	//Var Intro des info
+	int stopIndex=0,NvTaille=0;
 	
 	do{
 		choisir(&choix);
 		
 		switch (choix){
 			case 1:
-				info(cl);
+				//Introduire un seul compte
+				info();
 				break;
 			case 2:
+				//Introduire plusieur comptes
 				printf("Donner le nombres des comptes que vous voulez introduire: ");
 				scanf("%d",&nb);
 				Minfo(nb);
 				break;
 			case 3:
 				//Retrait depot
-				RetraitDepot(MenuOp(),rechercherParCIN(nb));
+				RetraitDepot(MenuOp(),rechercherParCIN(nbCl));
 				break;
 			case 4://Affichage par ordre
 				TriAsc(nb);
-				AfficherParOrdre(MenuTri(),nb);
-				
-				//Affichage(nb);
+				AfficherParOrdre(MenuTri(),nbCl);
 				break;
 			case 5:	
 				//Recherche par CIN
-				AffichageParIndice(rechercherParCIN(nb));
+				AffichageParIndice(rechercherParCIN(nbCl));
 				break;
 			case 6://Fidelisation
 				Fidelisation(nb);
@@ -117,14 +119,16 @@ void choisir(int *choix)
 //-----------------Recuperation des infos-----------------------
 //Recuperer les info d'un seul compte
 void info(){
+	int i=nbCl;
 	printf("-CIN : ");
-	scanf("%s",cl[0].CIN);
+	scanf("%s",cl[i].CIN);
 	printf("-Nom : ");
-	scanf("%s",cl[0].Nom);
+	scanf("%s",cl[i].Nom);
 	printf("-Prenom : ");
-	scanf("%s",cl[0].Prenom);
+	scanf("%s",cl[i].Prenom);
 	printf("-Montant : ");
-	scanf("%f",&cl[0].Montant);
+	scanf("%f",&cl[i].Montant);
+	nbCl++;
 	//ecrire dans le fichier
 	//fputs("HIiiiiiii",fichier);
 	//fputs(c->Nom,fichier);
@@ -132,10 +136,14 @@ void info(){
 	//fprintf(fichier,"%d",c->Montant);	
 }
 //Recuperer plusieurs cpt
-void Minfo(int nb){
-	int i;
+//avec pointeur
+/*void Minfo(int nb,int *ptrNvTaille,int *ptrstopIndex)
+{
+	int i,stopIndex=*ptrstopIndex,NvTaille=*ptrNvTaille;
 	
-	for(i=0;i<nb;i++)
+	
+	NvTaille+=nb;
+	for(i=stopIndex+1;i<NvTaille;i++)
 	{
 		printf("\nCompte numero %d\n",i+1);
 		printf("-CIN : ");
@@ -146,7 +154,35 @@ void Minfo(int nb){
 		scanf("%s",cl[i].Prenom);
 		printf("-Montant : ");
 		scanf("%f",&cl[i].Montant);
-	}	
+		
+	}
+	
+	stopIndex+=i;
+	
+	*ptrNvTaille=NvTaille;
+	*ptrstopIndex=stopIndex;
+}*/
+
+//Avec var globale
+void Minfo(int nb){
+	int i;
+	int n=nbCl ;
+	
+	for(i=n;i<nb+n;i++)
+	{
+		printf("\nCompte numero %d\n",i+1);
+		
+		printf("-CIN : ");
+		scanf("%s",cl[i].CIN);
+		printf("-Nom : ");
+		scanf("%s",cl[i].Nom);
+		printf("-Prenom : ");
+		scanf("%s",cl[i].Prenom);
+		printf("-Montant : ");
+		scanf("%f",&cl[i].Montant);
+		nbCl++;
+	}
+	
 }
 //--------------Recherche d'indice-------------------
 //Chercher par CIN 
@@ -247,7 +283,7 @@ void TriAsc(int taille)
 //Afficher par indice
 void AffichageParIndice(int i)
 {
-	printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 		
 }
 //Afficher Asc
@@ -256,7 +292,7 @@ void AffichageAsc(int taille)
 	int i;
 	for(i=0;i<taille;i++)
 	{
-		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 	}	
 }
 //Afficher Desc
@@ -265,7 +301,7 @@ void AffichageDesc(int taille)
 	int i;
 	for(i=taille-1;i>=0;i--)
 	{
-		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 	}	
 }
 
@@ -275,7 +311,7 @@ void AfficherAPartirDe_Asc(int debut,int taille)
 	int i;
 	for(i=debut;i<taille;i++)
 	{
-		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 	}	
 }
 void AfficherAPartirDe_Desc(int debut,int taille)

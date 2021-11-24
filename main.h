@@ -25,10 +25,15 @@ void MenuPrincipale();
 int MenuOp();
 int MenuTri();
 
+
 void choisir(int *choix);
-void info();
+
 void RetraitDepot(int choix,int indice);
+//Introduction des comptes
+void info();
 void Minfo(int nb);
+//void Minfo(int nb,int *ptrNvTaille,int *ptrstopIndex);
+
 //Les fcts de recherche
 int rechercherParCIN(int taille);
 int rechercherParMontant(int taille);
