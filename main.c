@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
 			fprintf(f,"Compte numero %d :\n",i+1);
 			fprintf(f,"\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 		}
+		printf("Les donnees sont enregistré dans le fichier avec succee\n");
 		fclose(f);
 	}
 	else
@@ -109,6 +110,7 @@ int MenuOp()
 	int op;
 	do{
 		printf("1.Retrait\n2.Depot\n");
+		printf("Veuillez saisir votre choix : ");
 		scanf("%d",&op);
  		if(op==1 || op==2)
 		{
@@ -136,6 +138,7 @@ void choisir(int *choix)
 }
 
 //-----------------Recuperation des infos-----------------------
+//Recuperer les info d'un seul compte
 void info(){
 	int i=nbCl;
 	do{
@@ -156,52 +159,6 @@ void info(){
 	scanf("%f",&cl[i].Montant);
 	nbCl++;
 }
-//Recuperer les info d'un seul compte
-/*void info(){
-	int i=nbCl;
-	
-	printf("-CIN : ");
-	scanf("%s",cl[i].CIN);
-	printf("-Nom : ");
-	scanf("%s",cl[i].Nom);
-	printf("-Prenom : ");
-	scanf("%s",cl[i].Prenom);
-	printf("-Montant : ");
-	scanf("%f",&cl[i].Montant);
-	nbCl++;
-	//ecrire dans le fichier
-	//fputs("HIiiiiiii",fichier);
-	//fputs(c->Nom,fichier);
-	//fputs(c->Prenom,fichier);
-	//fprintf(fichier,"%d",c->Montant);	
-}*/
-//Recuperer plusieurs cpt
-//avec pointeur
-/*void Minfo(int nb,int *ptrNvTaille,int *ptrstopIndex)
-{
-	int i,stopIndex=*ptrstopIndex,NvTaille=*ptrNvTaille;
-	
-	
-	NvTaille+=nb;
-	for(i=stopIndex+1;i<NvTaille;i++)
-	{
-		printf("\nCompte numero %d\n",i+1);
-		printf("-CIN : ");
-		scanf("%s",cl[i].CIN);
-		printf("-Nom : ");
-		scanf("%s",cl[i].Nom);
-		printf("-Prenom : ");
-		scanf("%s",cl[i].Prenom);
-		printf("-Montant : ");
-		scanf("%f",&cl[i].Montant);
-		
-	}
-	
-	stopIndex+=i;
-	
-	*ptrNvTaille=NvTaille;
-	*ptrstopIndex=stopIndex;
-}*/
 
 //Avec var globale
 void Minfo(int nb){
