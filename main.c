@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include <stdbool.h>
 #include "main.h"
 #define TAILLE_MAX 100
@@ -71,6 +70,20 @@ int main(int argc, char *argv[]) {
 		
 	return 0;
 }
+//Choix du menu principale
+void choisir(int *choix)
+{
+	do{
+		MenuPrincipale();
+		printf("Veuillez entrer votre choix : ");
+		scanf("%d",choix);
+		if(*choix<0 || *choix>7)
+		{
+			printf("\n--> Attention!!Veuillez entrer un choix valide entre 1 et 7 .\n\n");
+		}		
+	}while(*choix<0 || *choix>7);
+}
+
 //--------Menus---------------------------------------------------------
 //Afficher le Menu principale 
 void MenuPrincipale(){
@@ -123,19 +136,6 @@ int MenuOp()
 	}while(op!=1 && op!=2);
 	
 }
-//Choix du menu principale
-void choisir(int *choix)
-{
-	do{
-		MenuPrincipale();
-		printf("Veuillez entrer votre choix : ");
-		scanf("%d",choix);
-		if(*choix<0 || *choix>7)
-		{
-			printf("\n--> Attention!!Veuillez entrer un choix valide entre 1 et 7 .\n\n");
-		}		
-	}while(*choix<0 || *choix>7);
-}
 
 //-----------------Recuperation des infos-----------------------
 //Recuperer les info d'un seul compte
@@ -160,7 +160,7 @@ void info(){
 	nbCl++;
 }
 
-//Avec var globale
+//Recuperer plusieurs comptes
 void Minfo(int nb){
 	int i;
 	int n=nbCl ;
@@ -177,8 +177,7 @@ void Minfo(int nb){
 				printf("Ce CIN existe déja!! Veuiller entrer un CIN different\n\n");
 			}
 		}while(ExistCIN(nbCl,cl[i].CIN));
-	//	printf("-CIN : ");
-		//scanf("%s",cl[i].CIN);
+
 		printf("-Nom : ");
 		scanf("%s",cl[i].Nom);
 		printf("-Prenom : ");
@@ -288,21 +287,28 @@ void RetraitDepot(int choix,int indice)
 }
 
 //----------------Tri Asc du min au max
+//Tri par selection
 void TriAsc(int taille)
 {
-	int i, j;
+	int i, j, min;
     struct comptes temp;
-	for (i = 0; i < taille; i++)
+	for (i = 0; i < taille-1; i++)
     {
+    	min=i;
         for (j =i+1; j < taille; j++)
         {
-            if (cl[j].Montant < cl[i].Montant)
+            if (cl[i].Montant > cl[j].Montant)
             {
-                temp = cl[i];
-                cl[i] = cl[j];
-                cl[j] = temp;
+                min=j;
             } 
         }
+        if(min!=i)
+        {
+        	//echanger cl[i] avec cl[min]
+        		temp = cl[i];
+                cl[i] = cl[min];
+                cl[min] = temp;
+		}
     }
 }
 //----------------------------Affichages

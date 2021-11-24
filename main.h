@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
 //Les structures
 struct comptes{
 	char CIN[20];
@@ -8,7 +8,6 @@ struct comptes{
 	char Prenom[20];
 	float Montant;
 }comptes;
-//}clients[TAILLE_MAX];
 
 //----------LES Prototypes des fonctions
 //Les fcts d'affichage
@@ -32,7 +31,6 @@ void RetraitDepot(int choix,int indice);
 //Introduction des comptes
 void info();
 void Minfo(int nb);
-//void Minfo(int nb,int *ptrNvTaille,int *ptrstopIndex);
 
 //Les fcts de recherche
 int rechercherParCIN(int taille);
