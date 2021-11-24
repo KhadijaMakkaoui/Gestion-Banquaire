@@ -1,0 +1,6 @@
+Compte numero 1 :
+	CIN : EE23	|	Nom : RE	|	Prenom : REZ	|	Montant : 321.00 DH
+Compte numero 2 :
+	CIN : RE	|	Nom : RZETR	|	Prenom : FD	|	Montant : 432.00 DH
+Compte numero 3 :
+	CIN : RETFD	|	Nom : REZD	|	Prenom : SDF	|	Montant : 54.00 DH

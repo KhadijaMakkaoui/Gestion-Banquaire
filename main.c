@@ -10,9 +10,12 @@ struct comptes  cl[TAILLE_MAX];
 int nbCl=0;
 
 int main(int argc, char *argv[]) {
-	int choix,nb;
-	//Var Intro des info
-	//int stopIndex=0,NvTaille=0;
+	int i,choix,nb;
+	
+	//ouvrir un fichier
+	FILE* f=NULL;
+	f=fopen("Banque.txt","a+");
+	
 	
 	do{
 		choisir(&choix);
@@ -48,7 +51,22 @@ int main(int argc, char *argv[]) {
 		}
 				
 	}while(choix!=7);
-		
+	
+	//Tester l'ouverture du fichier
+	if(f!=NULL)
+	{
+		//Ecrire tous les données dans le fichier 
+		for(i=0;i<nbCl;i++)
+		{
+			fprintf(f,"Compte numero %d :\n",i+1);
+			fprintf(f,"\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+		}
+		fclose(f);
+	}
+	else
+	{
+		printf("Impossible d'ouvrir le fichier creer");
+	}
 		
 	return 0;
 }
