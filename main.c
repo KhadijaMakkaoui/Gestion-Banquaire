@@ -12,7 +12,7 @@ int nbCl=0;
 int main(int argc, char *argv[]) {
 	int choix,nb;
 	//Var Intro des info
-	int stopIndex=0,NvTaille=0;
+	//int stopIndex=0,NvTaille=0;
 	
 	do{
 		choisir(&choix);
@@ -80,7 +80,7 @@ int MenuTri()
 		scanf("%d",&ch);
 		if(ch<1 || ch>5)
 		{
-			printf("\nVotre choix est invalide veuillez entrer un nombre entre 1 et 7,Ressayer!\n\n");
+			printf("\nVotre choix est invalide veuillez entrer un nombre entre 1 et 5,Ressayer!\n\n");
 		}
 	}while(ch<1 || ch>5);
 	return ch;
@@ -360,7 +360,7 @@ void AffichageDesc(int taille)
 void AfficherAPartirDe_Asc(int debut,int taille)
 {
 	int i;
-	for(i=debut;i<taille;i++)
+	for(i=debut+1;i<taille;i++)
 	{
 		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f DH\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 	}	
