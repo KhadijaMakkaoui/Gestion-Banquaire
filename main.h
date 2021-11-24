@@ -37,6 +37,7 @@ void Minfo(int nb);
 //Les fcts de recherche
 int rechercherParCIN(int taille);
 int rechercherParMontant(int taille);
+bool ExistCIN(int taille,char RCIN[20]);
 
 //tri
 void TriAsc(int taille);

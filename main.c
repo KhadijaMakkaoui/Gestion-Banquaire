@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
 #include "main.h"
 #define TAILLE_MAX 100
 //Variables globales
@@ -32,7 +33,7 @@ int main(int argc, char *argv[]) {
 				RetraitDepot(MenuOp(),rechercherParCIN(nbCl));
 				break;
 			case 4://Affichage par ordre
-				TriAsc(nb);
+				TriAsc(nbCl);
 				AfficherParOrdre(MenuTri(),nbCl);
 				break;
 			case 5:	
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]) {
 				AffichageParIndice(rechercherParCIN(nbCl));
 				break;
 			case 6://Fidelisation
-				Fidelisation(nb);
+				Fidelisation(nbCl);
 				break;
 			case 7://Quitter
 				break;	
@@ -117,9 +118,30 @@ void choisir(int *choix)
 }
 
 //-----------------Recuperation des infos-----------------------
-//Recuperer les info d'un seul compte
 void info(){
 	int i=nbCl;
+	do{
+		//CIN C'est notre clé primaire 
+		printf("-CIN : ");
+		scanf("%s",cl[i].CIN);
+		if(ExistCIN(nbCl,cl[i].CIN))
+		{
+			printf("Ce CIN existe déja!! Veuiller entrer un CIN different\n\n");
+		}
+	}while(ExistCIN(nbCl,cl[i].CIN));
+	
+	printf("-Nom : ");
+	scanf("%s",cl[i].Nom);
+	printf("-Prenom : ");
+	scanf("%s",cl[i].Prenom);
+	printf("-Montant : ");
+	scanf("%f",&cl[i].Montant);
+	nbCl++;
+}
+//Recuperer les info d'un seul compte
+/*void info(){
+	int i=nbCl;
+	
 	printf("-CIN : ");
 	scanf("%s",cl[i].CIN);
 	printf("-Nom : ");
@@ -134,7 +156,7 @@ void info(){
 	//fputs(c->Nom,fichier);
 	//fputs(c->Prenom,fichier);
 	//fprintf(fichier,"%d",c->Montant);	
-}
+}*/
 //Recuperer plusieurs cpt
 //avec pointeur
 /*void Minfo(int nb,int *ptrNvTaille,int *ptrstopIndex)
@@ -171,9 +193,17 @@ void Minfo(int nb){
 	for(i=n;i<nb+n;i++)
 	{
 		printf("\nCompte numero %d\n",i+1);
-		
-		printf("-CIN : ");
-		scanf("%s",cl[i].CIN);
+		do{
+			//CIN C'est notre clé primaire 
+			printf("-CIN : ");
+			scanf("%s",cl[i].CIN);
+			if(ExistCIN(nbCl,cl[i].CIN))
+			{
+				printf("Ce CIN existe déja!! Veuiller entrer un CIN different\n\n");
+			}
+		}while(ExistCIN(nbCl,cl[i].CIN));
+	//	printf("-CIN : ");
+		//scanf("%s",cl[i].CIN);
 		printf("-Nom : ");
 		scanf("%s",cl[i].Nom);
 		printf("-Prenom : ");
@@ -201,7 +231,28 @@ int rechercherParCIN(int taille)
 		}
 	}
 	return indice;
+}
+//Recherche par cin Pour test d'existance
+bool ExistCIN(int taille,char RCIN[20])
+{
+	int i,indice=-1;
 	
+	for(i=0;i<taille;i++)
+	{
+		if(strcmp(RCIN,cl[i].CIN) == 0)
+		{
+			indice=i;
+			
+		}
+	}
+	if(indice==-1)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
 //Chercher par Montant
 int rechercherParMontant(int taille)
