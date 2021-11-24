@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "main.h"
 #define TAILLE_MAX 100
 struct comptes  cl[TAILLE_MAX];
@@ -247,8 +248,6 @@ void TriAsc(int taille)
 void AffichageParIndice(int i)
 {
 	printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
-
-	//printf("-CIN : %s  | Nom : %s  | Prenom : %s  | Montant : %f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 		
 }
 //Afficher Asc
@@ -320,7 +319,7 @@ void Fidelisation(int taille)
 	int i,ch;
 	float mtFidel;
 	puts("\t-Fidelisation-\n\tVoila les trois premiers comptes :\n\n");
-	for(i=taille-1;i<=taille-3;i--)
+	for(i=taille-1;i>=taille-3;i--)
 	{
 		printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
 
@@ -330,12 +329,19 @@ void Fidelisation(int taille)
 	scanf("%d",&ch);
 	if(ch==1)
 	{
-		mtFidel=1.3*cl[i].Montant/100;
-	    for(i=taille-1;i<=taille-3;i--)
+		
+		for(i=taille-1;i>=taille-3;i--)
 		{
+			mtFidel=1.3*(cl[i].Montant)/100;
 			cl[i].Montant+=mtFidel;
 		}
 		printf("Operation effectuee avec succees\n");
+		puts("\t--->Voila les trois premiers comptes Apres la fidelisation :\n\n");
+		for(i=taille-1;i>=taille-3;i--)
+		{
+			printf("\tCIN : %s\t|\tNom : %s\t|\tPrenom : %s\t|\tMontant : %0.2f\n",cl[i].CIN,cl[i].Nom,cl[i].Prenom,cl[i].Montant);
+	
+		}
 	}
 	
 
